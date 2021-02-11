@@ -15,10 +15,15 @@ public class Main {
         SalesDirector.fillStore(storeOrder);
 
         System.out.println("Welcome to our store!\n" +
-                "Please select the products you are interested in store.");
+                "Please select the products you are interested.\n");
 
         while (true) {
             storeOrder.printOrderItems();
+
+            storeOrder.filterOrderItemsByName("P");
+            storeOrder.filterOrderItemsByManufacturer("T");
+            storeOrder.filterOrderItemsByPrice(100);
+
             System.out.println("0 to exit.");
 
             String input = br.readLine();

@@ -1,12 +1,14 @@
 package ru.netology.product;
 
 public class Product {
-    private String name;
+    private final String name;
+    private final String manufacturer;
     private int price;
     private int rating;
 
-    public Product(String name, int price) {
+    public Product(String name, String manufacturer, int price) {
         this.name = name;
+        this.manufacturer = manufacturer;
         this.price = price;
         rating = 0;
     }
@@ -15,12 +17,12 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPrice() {
         return price;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
     }
 
     public void setPrice(int price) {
@@ -39,6 +41,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "name='" + name + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
                 ", price=" + price +
                 ", rating=" + rating +
                 '}';
