@@ -2,7 +2,8 @@ package ru.netology.orders;
 
 public class StoreOrder extends Order {
 
-    public void printStoreItems() {
+    @Override
+    public void printOrderItems()  {
         System.out.println("N Name Price Quantity");
         for (int i = 0; i < productItemList.size(); i++) {
             System.out.println(i + 1 + " "

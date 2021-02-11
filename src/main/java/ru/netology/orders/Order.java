@@ -20,4 +20,6 @@ public abstract class Order {
     public List<ProductItem> getProductItemList() {
         return productItemList;
     }
+
+    public abstract void printOrderItems();
 }

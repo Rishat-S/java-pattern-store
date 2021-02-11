@@ -1,5 +1,6 @@
 package ru.netology;
 
+import ru.netology.orders.Order;
 import ru.netology.orders.StoreOrder;
 import ru.netology.participants.SalesDirector;
 
@@ -10,14 +11,14 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StoreOrder storeOrder = new StoreOrder();
+        Order storeOrder = new StoreOrder();
         SalesDirector.fillStore(storeOrder);
 
         System.out.println("Welcome to our store!\n" +
                 "Please select the products you are interested in store.");
 
         while (true) {
-            storeOrder.printStoreItems();
+            storeOrder.printOrderItems();
             System.out.println("0 to exit.");
 
             String input = br.readLine();
