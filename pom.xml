@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.netology</groupId>
-  <artifactId>storeOrder</artifactId>
+  <artifactId>store</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>storeOrder</name>
+  <name>store</name>
   <url>http://www.netology.ru</url>
 
   <properties>
