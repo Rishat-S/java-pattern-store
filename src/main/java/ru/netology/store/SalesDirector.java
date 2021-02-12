@@ -1,4 +1,4 @@
-package ru.netology.participants;
+package ru.netology.store;
 
 import ru.netology.orders.Order;
 import ru.netology.product.Product;

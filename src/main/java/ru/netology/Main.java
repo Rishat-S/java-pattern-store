@@ -1,8 +1,9 @@
 package ru.netology;
 
+import ru.netology.orders.FilterOrderItems;
 import ru.netology.orders.Order;
-import ru.netology.orders.StoreOrder;
-import ru.netology.participants.SalesDirector;
+import ru.netology.store.StoreOrder;
+import ru.netology.store.SalesDirector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FilterOrderItems filterOrderItems = new FilterOrderItems();
         Order storeOrder = new StoreOrder();
         SalesDirector.fillStore(storeOrder);
 
@@ -18,11 +20,11 @@ public class Main {
                 "Please select the products you are interested.\n");
 
         while (true) {
-            storeOrder.printOrderItems();
+            storeOrder.printOrderItems(storeOrder.getProductItemList());
 
-            storeOrder.filterOrderItemsByName("P");
-            storeOrder.filterOrderItemsByManufacturer("T");
-            storeOrder.filterOrderItemsByPrice(100);
+            filterOrderItems.ByName(storeOrder.getProductItemList(), "P");
+            filterOrderItems.ByManufacturer(storeOrder.getProductItemList(), "T");
+            filterOrderItems.ByPrice(storeOrder.getProductItemList(), 100);
 
             System.out.println("0 to exit.");
 

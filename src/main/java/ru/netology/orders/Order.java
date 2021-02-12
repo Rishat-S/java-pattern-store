@@ -1,18 +1,27 @@
 package ru.netology.orders;
 
+import ru.netology.delivery.Status;
 import ru.netology.product.Product;
 import ru.netology.product.ProductItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class Order {
+    protected Status status;
     protected List<ProductItem> productItemList;
-    protected List<ProductItem> filteredItemList;
 
     public Order() {
         this.productItemList = new ArrayList<>();
+        status = Status.CREATED;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public void insertProductToList(Product product, int quantity) {
@@ -23,33 +32,7 @@ public abstract class Order {
         return productItemList;
     }
 
-    public void filterOrderItemsByName(String s) {
-        filteredItemList = productItemList.stream()
-                .filter(x -> x.getProduct().getName().startsWith(s))
-                .collect(Collectors.toList());
-        System.out.println("Filtered out by name: \"" + s + "\"");
-        printOrderItems(filteredItemList);
-    }
-
-    public void filterOrderItemsByPrice(int p) {
-        filteredItemList = productItemList.stream()
-                .filter(x -> x.getProduct().getPrice() == p)
-                .collect(Collectors.toList());
-        System.out.println("Filtered out by price: \"" + p + "\"");
-        printOrderItems(filteredItemList);
-    }
-
-    public void filterOrderItemsByManufacturer(String s) {
-        filteredItemList = productItemList.stream()
-                .filter(x -> x.getProduct().getManufacturer().startsWith(s))
-                .collect(Collectors.toList());
-        System.out.println("Filtered out by manufacturer: \"" + s + "\"");
-        printOrderItems(filteredItemList);
-    }
-
-    public abstract void printOrderItems();
-
-    public void printOrderItems(List<ProductItem> productItemList){
+    public void printOrderItems(List<ProductItem> productItemList) {
         System.out.println("N Name Price Quantity");
         for (int i = 0; i < productItemList.size(); i++) {
             System.out.println(i + 1 + " "
