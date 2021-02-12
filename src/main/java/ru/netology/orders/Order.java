@@ -41,6 +41,5 @@ public abstract class Order {
                     + productItemList.get(i).getQuantity() + " "
             );
         }
-        System.out.println();
     }
 }
