@@ -1,6 +1,5 @@
 package ru.netology;
 
-import ru.netology.orders.FilterOrderItems;
 import ru.netology.store.Store;
 
 import java.io.BufferedReader;
@@ -8,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Store store = new Store();
 
@@ -19,11 +18,21 @@ public class Main {
             store.getStoreOrder().printOrderItems(store.getStoreOrder().getProductItemList());
             System.out.println("0 to exit.");
 
-            String input = br.readLine();
-            if (input.equals("0")) {
-                break;
+            String input = null;
+            int nInput = 0;
+            try {
+                input = br.readLine();
+                if (input.equals("0")) {
+                    break;
+                }
+                nInput = Integer.parseInt(input);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
+            if (nInput > store.getStoreOrder().getProductItemList().size()) {
+                System.out.println("Incorrect entry");
+            }
 //            switch (input) {
 //                case ""
 //            }
