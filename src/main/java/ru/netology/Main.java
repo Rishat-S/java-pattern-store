@@ -15,14 +15,15 @@ public class Main {
 
         while (true) {
             System.out.println("Please select by number the products you are interested.");
-            store.getStoreOrder().printOrderItems(store.getStoreOrder().getProductItemList());
-            System.out.println("0 to exit.");
+            store.printStoreOrder();
+            System.out.println("0 - to complete the purchase of items");
 
             String input = null;
             int nInput = 0;
             try {
                 input = br.readLine();
                 if (input.equals("0")) {
+                    System.out.println("Exit");
                     break;
                 }
                 nInput = Integer.parseInt(input);
@@ -30,12 +31,21 @@ public class Main {
                 e.printStackTrace();
             }
 
-            if (nInput > store.getStoreOrder().getProductItemList().size()) {
+            if (nInput > store.storeOrderSize()) {
                 System.out.println("Incorrect entry");
+                continue;
+            } else {
+//                System.out.println("Enter the required quantity");
+//                int inputQuantity = getQuantity(br); // Покупатель указывает требуемое количество товара
+//                for (int i = 0; i < store.storeOrderSize(); i++) {
+//                    if (nInput == i) { // TODO: implement
+//                        // Добавить в корзину покупателя продукт и указать количество
+//                        // и удалить из магазина количество купленного товара
+//                    }
+//                }
             }
-//            switch (input) {
-//                case ""
-//            }
+
+
         }
     }
 }

@@ -16,6 +16,10 @@ public abstract class Order {
         status = Status.CREATED;
     }
 
+    public int getOrderSize() {
+        return productItemList.size();
+    }
+
     public Status getStatus() {
         return status;
     }
