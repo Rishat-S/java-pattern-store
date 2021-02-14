@@ -9,7 +9,7 @@ public class ProductItem {
         this.quantity = quantity;
     }
 
-    public int getSum(int quantity) {
+    public double getSum(int quantity) {
         return quantity * product.getPrice();
     }
 

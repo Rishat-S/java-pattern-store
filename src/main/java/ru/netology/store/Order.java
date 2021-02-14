@@ -28,7 +28,7 @@ public abstract class Order {
         this.status = status;
     }
 
-    public void insertProductToList(Product product, int quantity) {
+    public void insertProductToOrder(Product product, int quantity) {
         productItemList.add(new ProductItem(product, quantity));
     }
 
@@ -37,12 +37,13 @@ public abstract class Order {
     }
 
     public void printOrderItems(List<ProductItem> productItemList) {
-        System.out.println("N Name Price Quantity");
+        System.out.println(" N  Name        Price  Quantity");
         for (int i = 0; i < productItemList.size(); i++) {
-            System.out.println(i + 1 + " "
-                    + productItemList.get(i).getProduct().getName() + " "
-                    + productItemList.get(i).getProduct().getPrice() + " "
-                    + productItemList.get(i).getQuantity() + " "
+            System.out.printf("%2d. %-10s %.2f %9d\n",
+                    (i + 1),
+                    productItemList.get(i).getProduct().getName(),
+                    productItemList.get(i).getProduct().getPrice(),
+                    productItemList.get(i).getQuantity()
             );
         }
     }
