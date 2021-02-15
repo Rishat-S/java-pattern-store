@@ -14,13 +14,13 @@ public class Main {
         Store store = new Store();
         Cart cart;
 
-        cart = orderGeneration(br, store); // формирование заказа
-        if (cart.payOrder(cart)) { // оплата заказа
+        cart = orderGeneration(br, store);
+        if (cart.payOrder(br)) {
             Supplier supplier = new Supplier(cart.getCartOrder());
-            supplier.orderItIsDelivered(); // отправка заказа
-            supplier.orderDelivered();// доставка заказа
+            supplier.orderItIsDelivered();
+            supplier.orderDelivered();
         } else {
-            cart.withdrawOrder(); // возврат заказа
+            cart.withdrawOrder(store);
         }
     }
 
@@ -30,10 +30,19 @@ public class Main {
         while (true) {
             System.out.println("Please select by number the products you are interested.");
             store.printStoreOrder();
-            System.out.println("0 - to complete the purchase of items");
+            System.out.println("f - to filter the list of items\n" +
+                    "0 - to complete the purchase of items");
 
             Integer nInput = getInput(br);
-            if (nInput == null) break;
+
+            if (nInput == null) {
+                break;
+            }
+
+            if (nInput == 0) {
+                store.setFilter(br);
+                continue;
+            }
 
             if (nInput > store.storeOrderSize()) {
                 System.out.println("Incorrect entry");
@@ -42,12 +51,11 @@ public class Main {
                 Integer inputQuantity = getInput(br);
                 if (inputQuantity == null) {
                     System.out.println("Quantity not specified. Adding item cancelled.");
-                    continue;
                 } else {
-                    // TODO: implement
-                    // Добавить в корзину покупателя продукт и указать количество
-                    // и удалить из магазина количество купленного товара
-
+                    if (buyerCart.insertProductItemToOrder(store, nInput, inputQuantity)) {
+                        System.out.println("Added product in the cart");
+                        buyerCart.getCartOrder().printOrderItems(buyerCart.getCartOrder().getProductItemList());
+                    }
                 }
             }
         }
@@ -62,12 +70,13 @@ public class Main {
             if (input.equals("0")) {
                 return null;
             }
+            if (input.equals("f")) {
+                return 0;
+            }
             nInput = Integer.parseInt(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return nInput;
     }
-// FIXME:       System.out.printf("%2d. %-11s %.2f % .2f % 11.2f\n",
-// FIXME:       System.out.printf("%27s: % 10.2f\n", "Result", result);
 }

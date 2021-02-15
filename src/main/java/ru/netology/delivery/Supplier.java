@@ -10,10 +10,12 @@ public class Supplier {
     }
 
     public void orderItIsDelivered() {
-        // TODO:
+        deliveryOrder.setStatus(Status.IT_IS_DELIVERED);
+        System.out.println("Order it is delivered");
     }
 
     public void orderDelivered() {
-        // TODO:
+        deliveryOrder.setStatus(Status.DELIVERED);
+        System.out.println("Order delivered");
     }
 }
