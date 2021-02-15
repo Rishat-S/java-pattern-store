@@ -34,7 +34,7 @@ public class Cart {
             String sInput = br.readLine();
             if (sInput.equals("1")) {
                 System.out.println("Payment confirmed");
-                cartOrder.setStatus(Status.IT_IS_DELIVERED);
+                cartOrder.setStatus(Status.PAID);
                 return true;
             }
         } catch (IOException e) {
