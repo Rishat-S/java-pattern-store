@@ -4,7 +4,7 @@ public class Store {
     protected Order storeOrder;
 
     public Store() {
-        storeOrder = new StoreOrder();
+        storeOrder = new Order();
         SalesDirector.fillStore(storeOrder);
     }
 
@@ -14,5 +14,9 @@ public class Store {
 
     public void printStoreOrder() {
         storeOrder.printOrderItems(storeOrder.getProductItemList());
+    }
+
+    public Order getStoreOrder() {
+        return storeOrder;
     }
 }

@@ -7,7 +7,7 @@ import ru.netology.product.ProductItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Order {
+public class Order {
     protected Status status;
     protected List<ProductItem> productItemList;
 

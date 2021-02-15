@@ -1,5 +1,7 @@
 package ru.netology;
 
+import ru.netology.buyer.Cart;
+import ru.netology.delivery.Supplier;
 import ru.netology.store.Store;
 
 import java.io.BufferedReader;
@@ -10,17 +12,20 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Store store = new Store();
+        Cart cart;
 
-        orderGeneration(br, store); // формирование заказа
-        // оплата заказа
-        // отправка заказа
-        // доставка заказа
-        // возврат заказа
-
-
+        cart = orderGeneration(br, store); // формирование заказа
+        if (cart.payOrder(cart)) { // оплата заказа
+            Supplier supplier = new Supplier(cart.getCartOrder());
+            supplier.orderItIsDelivered(); // отправка заказа
+            supplier.orderDelivered();// доставка заказа
+        } else {
+            cart.withdrawOrder(); // возврат заказа
+        }
     }
 
-    private static void orderGeneration(BufferedReader br, Store store) {
+    private static Cart orderGeneration(BufferedReader br, Store store) {
+        Cart buyerCart = new Cart();
         System.out.println("Welcome to our store!");
         while (true) {
             System.out.println("Please select by number the products you are interested.");
@@ -46,10 +51,11 @@ public class Main {
                 }
             }
         }
+        return buyerCart;
     }
 
     private static Integer getInput(BufferedReader br) {
-        String input = null;
+        String input;
         int nInput = 0;
         try {
             input = br.readLine();
@@ -62,6 +68,6 @@ public class Main {
         }
         return nInput;
     }
-//        System.out.printf("%2d. %-11s %.2f % .2f % 11.2f\n",
-//        System.out.printf("%27s: % 10.2f\n", "Итого", result);
+// FIXME:       System.out.printf("%2d. %-11s %.2f % .2f % 11.2f\n",
+// FIXME:       System.out.printf("%27s: % 10.2f\n", "Result", result);
 }
