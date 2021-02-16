@@ -51,4 +51,8 @@ public class Cart {
         }
         System.out.println("Item returned to store");
     }
+
+    public void printBuyerCart() {
+        cartOrder.printOrderItems(cartOrder.getProductItemList());
+    }
 }

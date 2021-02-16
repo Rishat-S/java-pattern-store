@@ -22,16 +22,10 @@ public class Order {
 
     public double getOrderSum() {
         double result = 0;
-
         for (ProductItem productItem : productItemList) {
             result = result + productItem.getSum();
         }
-
         return result;
-    }
-
-    public FilterFlag getFilterFlag() {
-        return filterFlag;
     }
 
     public void setFilterFlag(FilterFlag filterFlag, String string) {
@@ -41,10 +35,6 @@ public class Order {
 
     public int getOrderSize() {
         return productItemList.size();
-    }
-
-    public Status getStatus() {
-        return status;
     }
 
     public void setStatus(Status status) {
@@ -81,19 +71,27 @@ public class Order {
 
     public List<ProductItem> filterByName(String nameProduct) {
         return productItemList.stream()
-                .filter(x -> x.getProduct().getName().startsWith(nameProduct))
+                .filter(x -> x.productName().startsWith(nameProduct))
                 .collect(Collectors.toList());
     }
 
     public List<ProductItem> filterByPrice(int price) {
         return productItemList.stream()
-                .filter(x -> x.getProduct().getPrice() == price)
+                .filter(x -> x.productPrice() == price)
                 .collect(Collectors.toList());
     }
 
     public List<ProductItem> filterByManufacturer(String manufacturer) {
         return productItemList.stream()
-                .filter(x -> x.getProduct().getManufacturer().startsWith(manufacturer))
+                .filter(x -> x.productManufacturer().startsWith(manufacturer))
                 .collect(Collectors.toList());
+    }
+
+    public Product getProduct(int index) {
+        return productItemList.get(index).getProduct();
+    }
+
+    public void changeTheQuantity(int index, int quantity) {
+        productItemList.get(index).setQuantity(productItemList.get(index).getQuantity() - quantity);
     }
 }

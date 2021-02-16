@@ -2,10 +2,10 @@ package ru.netology.delivery;
 
 import ru.netology.store.Order;
 
-public class Supplier {
+public class Deliver {
     Order deliveryOrder;
 
-    public Supplier(Order deliveryOrder) {
+    public Deliver(Order deliveryOrder) {
         this.deliveryOrder = deliveryOrder;
     }
 

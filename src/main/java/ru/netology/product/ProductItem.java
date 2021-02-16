@@ -17,10 +17,6 @@ public class ProductItem {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -35,5 +31,17 @@ public class ProductItem {
                 "product=" + product +
                 ", quantity=" + quantity +
                 '}';
+    }
+
+    public String productName() {
+        return product.getName();
+    }
+
+    public double productPrice() {
+        return product.getPrice();
+    }
+
+    public String productManufacturer() {
+        return product.getManufacturer();
     }
 }
