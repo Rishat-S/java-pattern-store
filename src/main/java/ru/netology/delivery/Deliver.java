@@ -1,6 +1,6 @@
 package ru.netology.delivery;
 
-import ru.netology.store.Order;
+import ru.netology.product.Order;
 
 public class Deliver {
     Order deliveryOrder;

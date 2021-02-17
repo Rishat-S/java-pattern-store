@@ -1,6 +1,8 @@
 package ru.netology.store;
 
 import ru.netology.buyer.Cart;
+import ru.netology.product.FilterFlag;
+import ru.netology.product.Order;
 import ru.netology.product.Product;
 
 import java.io.BufferedReader;

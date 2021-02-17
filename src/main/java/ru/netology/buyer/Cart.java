@@ -2,7 +2,7 @@ package ru.netology.buyer;
 
 import ru.netology.delivery.Status;
 import ru.netology.product.ProductItem;
-import ru.netology.store.Order;
+import ru.netology.product.Order;
 import ru.netology.store.Store;
 
 import java.io.BufferedReader;

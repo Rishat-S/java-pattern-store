@@ -1,8 +1,6 @@
-package ru.netology.store;
+package ru.netology.product;
 
 import ru.netology.delivery.Status;
-import ru.netology.product.Product;
-import ru.netology.product.ProductItem;
 
 import java.util.ArrayList;
 import java.util.List;
