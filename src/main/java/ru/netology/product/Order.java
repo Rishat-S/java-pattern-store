@@ -4,21 +4,22 @@ import ru.netology.delivery.Status;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Order {
+    protected Filter filter;
     protected FilterFlag filterFlag;
     protected String filterValue;
     protected Status status;
     protected List<ProductItem> productItemList;
 
     public Order() {
-        this.filterFlag = FilterFlag.CLEAR;
-        this.productItemList = new ArrayList<>();
+        filter = new Filter();
+        filterFlag = FilterFlag.CLEAR;
+        productItemList = new ArrayList<>();
         status = Status.CREATED;
     }
 
-    public double getOrderSum() {
+    public double orderSum() {
         double result = 0;
         for (ProductItem productItem : productItemList) {
             result = result + productItem.getSum();
@@ -26,12 +27,12 @@ public class Order {
         return result;
     }
 
-    public void setFilterFlag(FilterFlag filterFlag, String string) {
+    public void setFilterFlag(FilterFlag filterFlag, String filterValue) {
         this.filterFlag = filterFlag;
-        this.filterValue = string;
+        this.filterValue = filterValue;
     }
 
-    public int getOrderSize() {
+    public int orderSize() {
         return productItemList.size();
     }
 
@@ -39,54 +40,41 @@ public class Order {
         this.status = status;
     }
 
-    public boolean insertProductToOrder(Product product, int quantity) {
+    public boolean insertProduct(Product product, int quantity) {
         return productItemList.add(new ProductItem(product, quantity));
     }
 
-    public List<ProductItem> getProductItemList() {
+    public List<ProductItem> getProductItem() {
         return productItemList;
     }
 
-    public void printOrderItems(List<ProductItem> productItemList) {
+    public void printFilteredOrder(List<ProductItem> productItems) {
         if (filterFlag.equals(FilterFlag.BY_NAME)) {
-            productItemList = filterByName(filterValue);
+            productItems = filter.filterByName(productItems, filterValue);
         } else if (filterFlag.equals(FilterFlag.BY_PRICE)) {
-            productItemList = filterByPrice(Integer.parseInt(filterValue));
+            productItems = filter.filterByPrice(productItems, Integer.parseInt(filterValue));
         } else if (filterFlag.equals(FilterFlag.BY_MANUFACTURER)) {
-            productItemList = filterByManufacturer(filterValue);
+            productItems = filter.filterByManufacturer(productItems, filterValue);
         }
+        printOrder(productItems);
+    }
 
+    public void printOrder(List<ProductItem> productItems) {
         System.out.println(" N  Name        Price  Quantity");
-        for (int i = 0; i < productItemList.size(); i++) {
+        for (ProductItem productItem : productItems) {
             System.out.printf("%2d. %-10s %.2f %9d\n",
-                    (i + 1),
-                    productItemList.get(i).getProduct().getName(),
-                    productItemList.get(i).getProduct().getPrice(),
-                    productItemList.get(i).getQuantity()
+                    (getProductItem().indexOf(productItem) + 1),
+                    productItem.getProduct().getName(),
+                    productItem.getProduct().getPrice(),
+                    productItem.getQuantity()
             );
         }
     }
 
-    public List<ProductItem> filterByName(String nameProduct) {
-        return productItemList.stream()
-                .filter(x -> x.productName().startsWith(nameProduct))
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductItem> filterByPrice(int price) {
-        return productItemList.stream()
-                .filter(x -> x.productPrice() == price)
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductItem> filterByManufacturer(String manufacturer) {
-        return productItemList.stream()
-                .filter(x -> x.productManufacturer().startsWith(manufacturer))
-                .collect(Collectors.toList());
-    }
-
-    public Product getProduct(int index) {
-        return productItemList.get(index).getProduct();
+    public Product selectProduct(int index, int quantity) {
+        Product product = productItemList.get(index).getProduct();
+        changeTheQuantity(index, quantity);
+        return product;
     }
 
     public void changeTheQuantity(int index, int quantity) {

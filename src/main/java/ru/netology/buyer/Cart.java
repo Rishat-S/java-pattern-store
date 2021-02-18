@@ -16,7 +16,7 @@ public class Cart {
     }
 
     public boolean insertProductItemToOrder(Store store, int index, int quantity) {
-        return cartOrder.insertProductToOrder(store.selectFromStore(index - 1, quantity), quantity);
+        return cartOrder.insertProduct(store.takeProductFromStore(index - 1, quantity), quantity);
     }
 
     public Order getCartOrder() {
@@ -25,9 +25,8 @@ public class Cart {
 
     public boolean payOrder(BufferedReader br) {
         System.out.println("Your cart:");
-        cartOrder.printOrderItems(cartOrder.getProductItemList());
-        System.out.print("For payment: ");
-        System.out.println(cartOrder.getOrderSum());
+        cartOrder.printOrder(cartOrder.getProductItem());
+        System.out.printf("For payment: %.2f\n", cartOrder.orderSum());
         System.out.println("1 - Confirm\n" +
                 "0 - Cancel");
         try {
@@ -46,13 +45,13 @@ public class Cart {
 
     public void withdrawOrder(Store store) {
         cartOrder.setStatus(Status.WITHDRAW);
-        for (ProductItem productItem : cartOrder.getProductItemList()) {
-           store.getStoreOrder().insertProductToOrder(productItem.getProduct(),productItem.getQuantity());
+        for (ProductItem productItem : cartOrder.getProductItem()) {
+           store.getStoreOrder().insertProduct(productItem.getProduct(),productItem.getQuantity());
         }
         System.out.println("Item returned to store");
     }
 
     public void printBuyerCart() {
-        cartOrder.printOrderItems(cartOrder.getProductItemList());
+        cartOrder.printOrder(cartOrder.getProductItem());
     }
 }

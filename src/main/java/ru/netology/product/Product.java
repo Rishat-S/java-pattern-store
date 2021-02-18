@@ -1,24 +1,22 @@
 package ru.netology.product;
 
 public class Product {
-    private final String name;
-    private final String manufacturer;
+    private final String NAME;
+    private final String MANUFACTURER;
     private double price;
-    private int rating;
 
     public Product(String name, String manufacturer, double price) {
-        this.name = name;
-        this.manufacturer = manufacturer;
+        this.NAME = name;
+        this.MANUFACTURER = manufacturer;
         this.price = price;
-        rating = 0;
     }
 
     public String getName() {
-        return name;
+        return NAME;
     }
 
     public String getManufacturer() {
-        return manufacturer;
+        return MANUFACTURER;
     }
 
     public double getPrice() {
@@ -28,13 +26,4 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
 }

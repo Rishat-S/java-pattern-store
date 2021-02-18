@@ -1,20 +1,20 @@
 package ru.netology.product;
 
 public class ProductItem {
-    private Product product;
+    private final Product PRODUCT;
     private int quantity;
 
     public ProductItem(Product product, int quantity) {
-        this.product = product;
+        this.PRODUCT = product;
         this.quantity = quantity;
     }
 
     public double getSum() {
-        return quantity * product.getPrice();
+        return quantity * PRODUCT.getPrice();
     }
 
     public Product getProduct() {
-        return product;
+        return PRODUCT;
     }
 
     public int getQuantity() {
@@ -25,23 +25,15 @@ public class ProductItem {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "ProductItem{" +
-                "product=" + product +
-                ", quantity=" + quantity +
-                '}';
-    }
-
     public String productName() {
-        return product.getName();
+        return PRODUCT.getName();
     }
 
     public double productPrice() {
-        return product.getPrice();
+        return PRODUCT.getPrice();
     }
 
     public String productManufacturer() {
-        return product.getManufacturer();
+        return PRODUCT.getManufacturer();
     }
 }

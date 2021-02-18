@@ -1,7 +1,7 @@
 package ru.netology.store;
 
 import ru.netology.buyer.Cart;
-import ru.netology.product.FilterFlag;
+import ru.netology.product.Filter;
 import ru.netology.product.Order;
 import ru.netology.product.Product;
 
@@ -10,9 +10,11 @@ import java.io.IOException;
 
 public class Store {
     protected Order storeOrder;
+    protected Filter filter;
 
     public Store() {
         storeOrder = new Order();
+        filter = new Filter();
         SalesDirector.fillStore(storeOrder);
     }
 
@@ -32,7 +34,7 @@ public class Store {
             }
 
             if (nInput == 0) {
-                store.setFilter(br);
+                filter.setFilter(storeOrder, br);
                 continue;
             }
 
@@ -72,52 +74,16 @@ public class Store {
         return nInput;
     }
 
-    public void setFilter(BufferedReader br) {
-        System.out.println("Pull out the filter and its value through a space:\n" +
-                "0 - cancel\n" +
-                "1 - filter by name\n" +
-                "2 - filter by price\n" +
-                "3 - filter by manufacturer"
-        );
-
-        try {
-            String sInput = br.readLine();
-            if (sInput.equals("0")) {
-                storeOrder.setFilterFlag(FilterFlag.CLEAR, null);
-                return;
-            }
-            String[] strings = sInput.split(" ");
-            switch (strings[0]) {
-                case "1": {
-                    storeOrder.setFilterFlag(FilterFlag.BY_NAME, strings[1]);
-                    break;
-                }
-                case "2": {
-                    storeOrder.setFilterFlag(FilterFlag.BY_PRICE, strings[1]);
-                    break;
-                }
-                case "3": {
-                    storeOrder.setFilterFlag(FilterFlag.BY_MANUFACTURER, strings[1]);
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Product selectFromStore(int index, int quantity) {
-        Product selected = storeOrder.getProduct(index);
-        storeOrder.changeTheQuantity(index, quantity);
-        return selected;
+    public Product takeProductFromStore(int index, int quantity) {
+        return storeOrder.selectProduct(index, quantity);
     }
 
     public int storeOrderSize() {
-        return storeOrder.getOrderSize();
+        return storeOrder.orderSize();
     }
 
     public void printStoreOrder() {
-        storeOrder.printOrderItems(storeOrder.getProductItemList());
+        storeOrder.printFilteredOrder(storeOrder.getProductItem());
     }
 
     public Order getStoreOrder() {
