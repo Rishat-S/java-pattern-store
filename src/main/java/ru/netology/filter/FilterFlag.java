@@ -1,4 +1,4 @@
-package ru.netology.product;
+package ru.netology.filter;
 
 public enum FilterFlag {
     CLEAR,

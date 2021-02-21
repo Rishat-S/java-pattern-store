@@ -1,4 +1,7 @@
-package ru.netology.product;
+package ru.netology.filter;
+
+import ru.netology.product.Order;
+import ru.netology.product.ProductItem;
 
 import java.io.BufferedReader;
 import java.io.IOException;

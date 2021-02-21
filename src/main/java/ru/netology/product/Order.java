@@ -1,6 +1,8 @@
 package ru.netology.product;
 
 import ru.netology.delivery.Status;
+import ru.netology.filter.Filter;
+import ru.netology.filter.FilterFlag;
 
 import java.util.ArrayList;
 import java.util.List;

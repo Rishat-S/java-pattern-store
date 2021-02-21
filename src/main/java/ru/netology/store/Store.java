@@ -1,7 +1,7 @@
 package ru.netology.store;
 
 import ru.netology.buyer.Cart;
-import ru.netology.product.Filter;
+import ru.netology.filter.Filter;
 import ru.netology.product.Order;
 import ru.netology.product.Product;
 
