@@ -18,6 +18,22 @@ public class Store {
         SalesDirector.fillStore(storeOrder);
     }
 
+    public int orderSize() {
+        return storeOrder.orderSize();
+    }
+
+    public Order getStoreOrder() {
+        return storeOrder;
+    }
+
+    public Product takeProductFromStore(int index, int quantity) {
+        return storeOrder.selectProduct(index, quantity);
+    }
+
+    public void printStoreOrder() {
+        storeOrder.printFilteredOrder(storeOrder.getProductItem());
+    }
+
     public Cart orderGeneration(BufferedReader br, Store store) {
         Cart buyerCart = new Cart();
         System.out.println("Welcome to our store!");
@@ -38,7 +54,7 @@ public class Store {
                 continue;
             }
 
-            if (nInput > store.storeOrderSize()) {
+            if (nInput > store.orderSize()) {
                 System.out.println("Incorrect entry");
             } else {
                 System.out.println("Enter the required quantity");
@@ -46,7 +62,7 @@ public class Store {
                 if (inputQuantity == null) {
                     System.out.println("Quantity not specified. Adding item cancelled.");
                 } else {
-                    if (buyerCart.insertProductItemToOrder(store, nInput, inputQuantity)) {
+                    if (buyerCart.insertProduct(store, nInput, inputQuantity)) {
                         System.out.println("Added product in the cart");
                         buyerCart.printBuyerCart();
                     }
@@ -72,21 +88,5 @@ public class Store {
             e.printStackTrace();
         }
         return nInput;
-    }
-
-    public Product takeProductFromStore(int index, int quantity) {
-        return storeOrder.selectProduct(index, quantity);
-    }
-
-    public int storeOrderSize() {
-        return storeOrder.orderSize();
-    }
-
-    public void printStoreOrder() {
-        storeOrder.printFilteredOrder(storeOrder.getProductItem());
-    }
-
-    public Order getStoreOrder() {
-        return storeOrder;
     }
 }

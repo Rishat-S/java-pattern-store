@@ -15,12 +15,16 @@ public class Cart {
         cartOrder = new Order();
     }
 
-    public boolean insertProductItemToOrder(Store store, int index, int quantity) {
+    public boolean insertProduct(Store store, int index, int quantity) {
         return cartOrder.insertProduct(store.takeProductFromStore(index - 1, quantity), quantity);
     }
 
     public Order getCartOrder() {
         return cartOrder;
+    }
+
+    public void printBuyerCart() {
+        cartOrder.printOrder(cartOrder.getProductItem());
     }
 
     public boolean payOrder(BufferedReader br) {
@@ -49,9 +53,5 @@ public class Cart {
            store.getStoreOrder().insertProduct(productItem.getProduct(),productItem.getQuantity());
         }
         System.out.println("Item returned to store");
-    }
-
-    public void printBuyerCart() {
-        cartOrder.printOrder(cartOrder.getProductItem());
     }
 }

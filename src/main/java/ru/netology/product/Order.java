@@ -21,6 +21,14 @@ public class Order {
         status = Status.CREATED;
     }
 
+    public boolean insertProduct(Product product, int quantity) {
+        return productItemList.add(new ProductItem(product, quantity));
+    }
+
+    public int orderSize() {
+        return productItemList.size();
+    }
+
     public double orderSum() {
         double result = 0;
         for (ProductItem productItem : productItemList) {
@@ -29,25 +37,10 @@ public class Order {
         return result;
     }
 
-    public void setFilterFlag(FilterFlag filterFlag, String filterValue) {
-        this.filterFlag = filterFlag;
-        this.filterValue = filterValue;
-    }
-
-    public int orderSize() {
-        return productItemList.size();
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public boolean insertProduct(Product product, int quantity) {
-        return productItemList.add(new ProductItem(product, quantity));
-    }
-
-    public List<ProductItem> getProductItem() {
-        return productItemList;
+    public Product selectProduct(int index, int quantity) {
+        Product product = productItemList.get(index).getProduct();
+        changeTheQuantity(index, quantity);
+        return product;
     }
 
     public void printFilteredOrder(List<ProductItem> productItems) {
@@ -61,6 +54,23 @@ public class Order {
         printOrder(productItems);
     }
 
+    public void changeTheQuantity(int index, int quantity) {
+        productItemList.get(index).setQuantity(productItemList.get(index).getQuantity() - quantity);
+    }
+
+    public void setFilterFlag(FilterFlag filterFlag, String filterValue) {
+        this.filterFlag = filterFlag;
+        this.filterValue = filterValue;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<ProductItem> getProductItem() {
+        return productItemList;
+    }
+
     public void printOrder(List<ProductItem> productItems) {
         System.out.println(" N  Name        Price  Quantity");
         for (ProductItem productItem : productItems) {
@@ -71,15 +81,5 @@ public class Order {
                     productItem.getQuantity()
             );
         }
-    }
-
-    public Product selectProduct(int index, int quantity) {
-        Product product = productItemList.get(index).getProduct();
-        changeTheQuantity(index, quantity);
-        return product;
-    }
-
-    public void changeTheQuantity(int index, int quantity) {
-        productItemList.get(index).setQuantity(productItemList.get(index).getQuantity() - quantity);
     }
 }
