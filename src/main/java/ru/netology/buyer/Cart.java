@@ -2,18 +2,12 @@ package ru.netology.buyer;
 
 import ru.netology.delivery.Status;
 import ru.netology.product.Order;
-import ru.netology.product.Product;
 import ru.netology.product.ProductItem;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Cart extends Order {
-
-    @Override
-    public boolean insertProduct(Product product, int quantity) {
-        return false;
-    }
 
     @Override
     public boolean payOrder(Order order, BufferedReader br) {
@@ -36,17 +30,10 @@ public class Cart extends Order {
         return false;
     }
 
-    @Override
-    public Order getOrder() {
-        return null;
-    }
 
     @Override
     public void withdrawOrder(Order order) {
         order.setStatus(Status.WITHDRAW);
-        for (ProductItem productItem : order.getProductItems()) {
-            order.getOrder().insertProduct(productItem.getProduct(), productItem.getQuantity());
-        }
         System.out.println("Item returned to store");
     }
 }

@@ -22,7 +22,9 @@ public abstract class Order {
         status = Status.CREATED;
     }
 
-    public abstract boolean insertProduct(Product product, int quantity);
+    public boolean insertProduct(Product product, int quantity) {
+        return productItems.add(new ProductItem(product, quantity));
+    }
 
     public int orderSize() {
         return productItems.size();
@@ -83,8 +85,6 @@ public abstract class Order {
     }
 
     public abstract boolean payOrder(Order order, BufferedReader br);
-
-    public abstract Order getOrder();
 
     public abstract void withdrawOrder(Order order);
 }

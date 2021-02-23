@@ -5,8 +5,8 @@ import ru.netology.product.Order;
 public class Deliver {
     Order deliveryOrder;
 
-    public Deliver(Order deliveryOrder) {
-        this.deliveryOrder = deliveryOrder;
+    public Deliver(Order order) {
+        deliveryOrder = order;
     }
 
     public void orderItIsDelivered() {

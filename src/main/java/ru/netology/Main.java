@@ -15,10 +15,9 @@ public class Main {
         Order cart;
         Seller seller = new Seller();
 
-
         cart = seller.orderGeneration(br, store);
         if (cart.payOrder(cart, br)) {
-            Deliver supplier = new Deliver(cart.getOrder());
+            Deliver supplier = new Deliver(cart);
             supplier.orderItIsDelivered();
             supplier.orderDelivered();
         } else {
