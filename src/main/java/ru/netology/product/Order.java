@@ -4,41 +4,40 @@ import ru.netology.delivery.Status;
 import ru.netology.filter.Filter;
 import ru.netology.filter.FilterFlag;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public abstract class Order {
     protected Filter filter;
     protected FilterFlag filterFlag;
     protected String filterValue;
     protected Status status;
-    protected List<ProductItem> productItemList;
+    protected List<ProductItem> productItems;
 
     public Order() {
         filter = new Filter();
         filterFlag = FilterFlag.CLEAR;
-        productItemList = new ArrayList<>();
+        productItems = new ArrayList<>();
         status = Status.CREATED;
     }
 
-    public boolean insertProduct(Product product, int quantity) {
-        return productItemList.add(new ProductItem(product, quantity));
-    }
+    public abstract boolean insertProduct(Product product, int quantity);
 
     public int orderSize() {
-        return productItemList.size();
+        return productItems.size();
     }
 
     public double orderSum() {
         double result = 0;
-        for (ProductItem productItem : productItemList) {
+        for (ProductItem productItem : productItems) {
             result = result + productItem.getSum();
         }
         return result;
     }
 
     public Product selectProduct(int index, int quantity) {
-        Product product = productItemList.get(index).getProduct();
+        Product product = productItems.get(index).getProduct();
         changeTheQuantity(index, quantity);
         return product;
     }
@@ -55,7 +54,7 @@ public class Order {
     }
 
     public void changeTheQuantity(int index, int quantity) {
-        productItemList.get(index).setQuantity(productItemList.get(index).getQuantity() - quantity);
+        productItems.get(index).setQuantity(productItems.get(index).getQuantity() - quantity);
     }
 
     public void setFilterFlag(FilterFlag filterFlag, String filterValue) {
@@ -67,19 +66,25 @@ public class Order {
         this.status = status;
     }
 
-    public List<ProductItem> getProductItem() {
-        return productItemList;
+    public List<ProductItem> getProductItems() {
+        return this.productItems;
     }
 
     public void printOrder(List<ProductItem> productItems) {
         System.out.println(" N  Name        Price  Quantity");
         for (ProductItem productItem : productItems) {
             System.out.printf("%2d. %-10s %.2f %9d\n",
-                    (getProductItem().indexOf(productItem) + 1),
+                    (getProductItems().indexOf(productItem) + 1),
                     productItem.getProduct().getName(),
                     productItem.getProduct().getPrice(),
                     productItem.getQuantity()
             );
         }
     }
+
+    public abstract boolean payOrder(Order order, BufferedReader br);
+
+    public abstract Order getOrder();
+
+    public abstract void withdrawOrder(Order order);
 }

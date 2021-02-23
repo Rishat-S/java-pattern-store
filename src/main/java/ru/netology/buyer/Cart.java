@@ -1,43 +1,32 @@
 package ru.netology.buyer;
 
 import ru.netology.delivery.Status;
-import ru.netology.product.ProductItem;
 import ru.netology.product.Order;
-import ru.netology.store.Store;
+import ru.netology.product.Product;
+import ru.netology.product.ProductItem;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Cart {
-    protected Order cartOrder;
+public class Cart extends Order {
 
-    public Cart() {
-        cartOrder = new Order();
+    @Override
+    public boolean insertProduct(Product product, int quantity) {
+        return false;
     }
 
-    public boolean insertProduct(Store store, int index, int quantity) {
-        return cartOrder.insertProduct(store.takeProductFromStore(index - 1, quantity), quantity);
-    }
-
-    public Order getCartOrder() {
-        return cartOrder;
-    }
-
-    public void printBuyerCart() {
-        cartOrder.printOrder(cartOrder.getProductItem());
-    }
-
-    public boolean payOrder(BufferedReader br) {
+    @Override
+    public boolean payOrder(Order order, BufferedReader br) {
         System.out.println("Your cart:");
-        cartOrder.printOrder(cartOrder.getProductItem());
-        System.out.printf("For payment: %.2f\n", cartOrder.orderSum());
+        order.printOrder(order.getProductItems());
+        System.out.printf("For payment: %.2f\n", order.orderSum());
         System.out.println("1 - Confirm\n" +
                 "0 - Cancel");
         try {
             String sInput = br.readLine();
             if (sInput.equals("1")) {
                 System.out.println("Payment confirmed");
-                cartOrder.setStatus(Status.PAID);
+                order.setStatus(Status.PAID);
                 return true;
             }
         } catch (IOException e) {
@@ -47,10 +36,16 @@ public class Cart {
         return false;
     }
 
-    public void withdrawOrder(Store store) {
-        cartOrder.setStatus(Status.WITHDRAW);
-        for (ProductItem productItem : cartOrder.getProductItem()) {
-           store.getStoreOrder().insertProduct(productItem.getProduct(),productItem.getQuantity());
+    @Override
+    public Order getOrder() {
+        return null;
+    }
+
+    @Override
+    public void withdrawOrder(Order order) {
+        order.setStatus(Status.WITHDRAW);
+        for (ProductItem productItem : order.getProductItems()) {
+            order.getOrder().insertProduct(productItem.getProduct(), productItem.getQuantity());
         }
         System.out.println("Item returned to store");
     }
